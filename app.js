@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const app = express();
 
 // Directory paths
 const imageDir = path.join(__dirname, 'images');
 const pdbDir = path.join(__dirname, 'pdb_files');
 
+app.use(cors());
 // Route to serve images
 app.get('/images/:id', (req, res) => {
     const id = req.params.id;
@@ -18,15 +20,15 @@ app.get('/images/:id', (req, res) => {
     });
 });
 
-// Route to serve PDB files
+// Route to serve PDB filesclear
 app.get('/pdb/:id', (req, res) => {
     const id = req.params.id;
-    const pdbPath = path.join(pdbDir, `${id}.pdb`);
+    const pdbPath = path.join(pdbDir, `${id}`);
 
     res.sendFile(pdbPath, (err) => {
-        if (err) {
-            res.status(404).send('PDB file not found');
-        }
+        // if (err) {
+        //     res.status(404).send('PDB file not found');
+        // }
     });
 });
 
